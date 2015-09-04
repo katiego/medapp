@@ -1,7 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Meditations) {
+.controller('DashCtrl', function($scope, $rootScope, Meditations) {
   $scope.meditations = Meditations.all();
+  $scope.currentuser = $rootScope.currentuser;
+  $scope.currentuser = window.localStorage['Parse/82qjoScomPM7rS73GmpMZIiogaBmH7Jo5VSQZSKD/currentUser'];
+  console.log($scope.currentuser)
+
 })
 
 
@@ -22,7 +26,7 @@ angular.module('starter.controllers', [])
 .controller('AccountCtrl', function($scope) {
 })
 
-.controller('LoginCtrl', function($scope, $state, $location) {
+.controller('LoginCtrl', function($scope, $state, $rootScope) {
  
   $scope.data = {};
  
@@ -40,8 +44,8 @@ angular.module('starter.controllers', [])
     user.signUp(null, {
       success: function(user) {
         // Hooray! Let them use the app now.
-        $scope.currentuser = user._serverData.username
-        $location.path('/tab/dash')
+        $rootScope.currentuser = user._serverData.username;
+        $state.go('tab.dash');
       },
       error: function(user, error) {
         // Show the error message somewhere and let the user try again.
@@ -56,9 +60,10 @@ angular.module('starter.controllers', [])
       success: function(user) {
         // Do stuff after successful login.
         console.log(user);
-        console.log(user._serverData.username)
-        $scope.currentuser = user._serverData.username
-        $location.path('/tab/dash');
+        
+        $rootScope.currentuser = user._serverData.username
+        console.log($rootScope.currentuser);
+        $state.go('tab.dash');
       },
       error: function(user, error) {
         // The login failed. Check error to see why.
@@ -72,8 +77,8 @@ angular.module('starter.controllers', [])
      function() {
          alert('success');
        }, function(error) {
-         alert('error!');
-       }  
+         alert('error : ' + error);
+       }
     );
   };
  
