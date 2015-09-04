@@ -1,0 +1,33 @@
+<ion-view view-title="All Meditations">
+  <ion-content class="padding">
+        <div>
+          <a href = "#/signup" class="button button-positive" style="width: 100%; margin: 20px 0;">
+            Sign Up
+          </a>
+          
+          <a href = "#/signin" class="button button-positive" style="width: 100%; margin: 20px 0;">
+            Sign In
+          </a>
+          
+          <button class="button button-stable button-block" ng-click="logoutUser()">Log Out</button>
+
+          Current user: {{currentuser}}
+
+          <div ng-repeat="meditation in meditations">
+
+            <div class="card">
+              <div class="item item-text-wrap">
+                {{meditation.title}}, 
+                <em>{{meditation.time}}</em> <br>
+                  <audio controls>
+                    <source ng-src="{{meditation.recording}}" type="audio/mpeg">
+                  </audio>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+
+  </ion-content>
+</ion-view>
